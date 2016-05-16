@@ -29,3 +29,6 @@ If you want to own this project, you can follow the steps below:
     * Since we are sending SMS, it is required to attach a US phone number. It doesn't matter what city.
   5. Create App
     * Once the above steps are complete, you are ready to create the app by clicking the button
+
+
+Now enjoy!!
