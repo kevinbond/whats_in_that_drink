@@ -4,7 +4,7 @@ This [Tropo](www.tropo.com) ruby application accepts an SMS with any alcholoic d
 
 There will be many ways to create these drinks so the application will iterate through all of them depending on how you answer the following question -
 
-⋅⋅*"Would you like to see the next drink?"
+⋅⋅* "Would you like to see the next drink?"
 
- ⋅⋅⋅If you answer with 'yes', you will see the next drink in line.
- ⋅⋅⋅Otherwise, you can start preparing your cocktail with perciscion!
+⋅⋅⋅ If you answer with 'yes', you will see the next drink in line.
+⋅⋅⋅ Otherwise, you can start preparing your cocktail with perciscion!
