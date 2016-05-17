@@ -47,28 +47,30 @@ drink = ask "", {
   choices: '[ANY]'
 }
 
-url = "http://www.thecocktaildb.com/api/json/v1/1/search.php?s=#{URI::encode(drink.value)}"
-log "Drink URL ====> #{url}"
-drank = JSON.parse(RestClient.get url)
-log "Drink details ====> #{drank}"
-
-if drank['drinks'].nil?
-  url = "http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=#{drink.value}"
-  drank = JSON.parse(RestClient.get url)
-
-  drank['drinks'].each do |d|
-    url = "http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{d['idDrink']}"
-    new_drink = JSON.parse(RestClient.get url)
-    text = get_detail(new_drink)
-    drank(text) if $currentCall.isActive
-  end
-
-  hangup
+if drink.value.downcase == 'help' || drink.value.downcase == 'hi' || drink.value.downcase == 'hello'
+  say "Thanks for contacting \"Whats that drink!\". You can type any drink name(i.e. sex on the beach) or liquor type(i.e. amaretto) to get started."
 else
-  read_data(drank)
-end
+  url = "http://www.thecocktaildb.com/api/json/v1/1/search.php?s=#{URI::encode(drink.value)}"
+  log "Drink URL ====> #{url}"
+  drank = JSON.parse(RestClient.get url)
+  log "Drink details ====> #{drank}"
 
-if $currentCall.isActive
-  say 'There are no more entries'
-  hangup
+  if drank['drinks'].nil?
+    url = "http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=#{drink.value}"
+    drank = JSON.parse(RestClient.get url)
+
+    if drank['drinks'].nil?
+      say "We're sorry, we couldn't find any beverage with that critera. You can enter \"help\" for more info"
+    else
+      drank['drinks'].each do |d|
+        url = "http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{d['idDrink']}"
+        new_drink = JSON.parse(RestClient.get url)
+        text = get_detail(new_drink)
+        drank(text) if $currentCall.isActive
+      end
+      hangup
+    end
+  else
+    read_data(drank)
+  end
 end
